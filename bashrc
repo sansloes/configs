@@ -76,12 +76,12 @@ alias lg='ll | grep -i $1'
 alias reload='source ~/.bashrc'
 
 #Remove every local branch not existing on remote
-rm_local()
+remove_dead_branches()
 {
   git fetch -p && for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do git branch -D $branch; done
 }
 #Remove tag on remote and locally
-rm_tag()
+remove_git_tag()
 {
   git push origin :refs/tags/$1
   git tag --delete $1

@@ -1,27 +1,27 @@
-# don't put duplicate lines or lines starting with space in the history.
+# Don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
-# append to the history file, don't overwrite it
+# Append to the history file, don't overwrite it
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-# check the window size after each command and, if necessary,
+# Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# make less more friendly for non-text input files, see lesspipe(1)
+# Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
+# Set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
+# Set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
@@ -53,10 +53,10 @@ xterm*|rxvt*)
     ;;
 esac
 
-# colored GCC warnings and errors
+# Colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# enable programmable completion features (you don't need to enable
+# Enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
@@ -75,19 +75,19 @@ alias lrt='ll -rt'
 alias lg='ll | grep -i $1'
 alias reload='source ~/.bashrc'
 
-#Remove every local branch not existing on remote
+# Remove every local branch not existing on remote
 remove_dead_branches()
 {
   git fetch -p && for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do git branch -D $branch; done
 }
-#Remove tag on remote and locally
+# Remove tag on remote and locally
 remove_git_tag()
 {
   git push origin :refs/tags/$1
   git tag --delete $1
 }
 
-#Override branch with state from another branch
+# Override branch with state from another branch
 override_current_branch()
 {
   if [ $# -ne 1 ]; then
@@ -109,6 +109,19 @@ override_current_branch()
 
   # Push the changes to the remote repository
   git push --force origin "$current_branch"
+}
+
+# Tag annotated and push to remote
+git_tag() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: git_tag <tag_name> <tag_message>"
+        return 1
+    fi
+
+    tag_name="$1"
+    tag_message="$2"
+
+    git tag -a "$tag_name" -m "$tag_message" && git push origin "$tag_name"
 }
 
 # Source locally needed alias and stuff

@@ -76,19 +76,19 @@ alias lg='ll | grep -i $1'
 alias reload='source ~/.bashrc'
 
 # Remove every local branch not existing on remote
-remove_dead_branches()
+git_remove_dead_branches()
 {
   git fetch -p && for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do git branch -D $branch; done
 }
 # Remove tag on remote and locally
-remove_git_tag()
+git_remove_tag()
 {
   git push origin :refs/tags/$1
   git tag --delete $1
 }
 
 # Override branch with state from another branch
-override_current_branch()
+git_override_current_branch()
 {
   if [ $# -ne 1 ]; then
     echo "Usage: override_current_branch <source_branch>"

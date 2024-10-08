@@ -10,6 +10,8 @@ HISTCONTROL=ignoreboth
 autoload -Uz compinit
 compinit
 
+export CLICOLOR=1
+
 # Aliases
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
@@ -17,6 +19,8 @@ alias ll='ls -lF'
 alias lrt='ll -rt'
 alias lg='ll | grep -i $1'
 alias reload='source ~/.zshrc'
+
+PROMPT='%n@%m %1~ %# '
 
 # Remove every local branch not existing on remote
 git_remove_dead_branches() {

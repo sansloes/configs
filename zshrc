@@ -68,6 +68,7 @@ unset RPROMPT
 PROMPT=$'\n%F{44}%n%f%F{38}:%1~/%f $(git_branch)\n%F{44}%% %f'
 
 export LANG=en_US.UTF-8
+export LSCOLORS="ExFxCxDxBxegedabagacad"
 
 alias ls='ls -G'
 alias ll='ls -l'

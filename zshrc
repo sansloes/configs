@@ -10,7 +10,7 @@ setopt sharehistory
 
 # Timestamps (optional)
 setopt EXTENDED_HISTORY
-HIST_STAMPS="yyyy-mm-dd"
+HIST_STAMPS="%Y-%m-%d"
 
 # Deduping
 HISTDUP=erase
@@ -18,10 +18,22 @@ setopt hist_ignore_dups
 setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_find_no_dups
+setopt hist_ignore_space      
+setopt hist_reduce_blanks
+setopt hist_expire_dups_first
+
+autoload -U compinit
+compinit -C
 
 # Case insensitive completion
-autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' menu select
+zstyle ':completion:*' completer _complete _correct _approximate
+zstyle ':completion:*' rehash true
+
+setopt extended_glob
+setopt globdots
+setopt numeric_globsort
 
 # --- Minimal Git segment: branch + " *" when dirty; no "git" word ---
 setopt prompt_subst
@@ -60,7 +72,6 @@ export LANG=en_US.UTF-8
 alias ls='ls -G'
 alias ll='ls -l'
 alias lrt='ll -rt'
-alias lg='ll | grep -i $1'
 alias reload='source ~/.zshrc'
 # --- Git ---
 # Remove every local branch not existing on remote

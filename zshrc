@@ -74,6 +74,8 @@ alias ls='ls -G'
 alias ll='ls -l'
 alias lrt='ll -rt'
 alias reload='source ~/.zshrc'
+alias r='cd ~/repos'
+
 # --- Git ---
 # Remove every local branch not existing on remote
 git_remove_dead_branches()
